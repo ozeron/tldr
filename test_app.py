@@ -9,17 +9,18 @@ def json_of_response(response):
     """Decode json from response"""
     return json.loads(response.data.decode('utf8'))
 
+
 def json_request(self, url, data):
     return self.app.post(url,
                          data=json.dumps(data),
                          content_type='application/json')
 
+
 def build_summary(client, text):
     """Records a message"""
     rv = json_request(client, '/api/summary_from_text', {'text': text})
-    # if text:
-    #     assert b'Your message was recorded' in rv.data
     return rv
+
 
 class FlaskrTestCase(unittest.TestCase):
     def setUp(self):
@@ -35,6 +36,7 @@ class FlaskrTestCase(unittest.TestCase):
         rv = build_summary(self, 'test message 1')
         expected = {'text': 'test message 1'}
         self.assertEqual(json_of_response(rv), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

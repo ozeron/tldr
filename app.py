@@ -13,5 +13,4 @@ def add_message():
     content = request.get_json()
     text = content['text']
     summary = build(text)
-    print(summary)
     return jsonify(text=summary)
