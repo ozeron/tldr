@@ -1,3 +1,4 @@
 nltk
 gensim
 Flask==0.12
+flask-rest-jsonapi
