@@ -1,7 +1,9 @@
 TASKLIST:
 - [x] Baseline
 - [x] Added simple API
-- [] Build simple Docker wrapper
-- [] Deploy
-- [] Add stopwords filtering
-- [] Use paragraphs
+- [x] Build simple Docker wrapper
+- [x] Deploy
+- [ ] Add empty text field error
+- [ ] Add JSON deserializing, when text received
+- [ ] Add stopwords filtering
+- [ ] Use paragraphs
