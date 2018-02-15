@@ -9,6 +9,7 @@ RUN apt-get -qq update && apt-get -qq -y install python3-pip
 
 COPY requirments.txt /app/
 RUN pip3 install -r requirments.txt
+RUN python3 -c "import nltk; nltk.download('punkt')"
 
 ENV FLASK_APP app
 
