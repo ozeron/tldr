@@ -1,16 +1,12 @@
-from flask import Flask, request
-from flask import jsonify
-from src.model.summary import build
+from flask import Flask
+from flask_restful import Api
+
+from src.api import SummaryFromText, Home
 
 app = Flask(__name__)
+api = Api(app)
+api.add_resource(Home, '/')
+api.add_resource(SummaryFromText, '/api/summary_from_text')
 
-@app.route('/')
-def hello_world():
-    return jsonify(status='OK')
-
-@app.route('/api/summary_from_text', methods=['POST'])
-def add_message():
-    content = request.get_json()
-    text = content['text']
-    summary = build(text)
-    return jsonify(text=summary)
+if __name__ == '__main__':
+    app.run()

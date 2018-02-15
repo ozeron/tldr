@@ -6,9 +6,11 @@ ENV LANG C.UTF-8
 WORKDIR /app
 
 RUN apt-get -qq update && apt-get -qq -y install python3-pip
+RUN pip3 install --upgrade pip
 
 COPY requirments.txt /app/
-RUN pip3 install -r requirments.txt
+
+RUN pip3 install -r requirments.txt --quiet
 RUN python3 -c "import nltk; nltk.download('punkt')"
 
 ENV FLASK_APP app

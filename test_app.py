@@ -10,7 +10,7 @@ def json_of_response(response):
     return json.loads(response.data.decode('utf8'))
 
 
-def json_request(self, url, data):
+def json_request(self, url, data={}):
     return self.app.post(url,
                          data=json.dumps(data),
                          content_type='application/json')
@@ -29,12 +29,28 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_empty(self):
         rv = self.app.get('/')
-        expected = {'status': 'OK'}
+        expected = {'status': 'ok'}
         self.assertEqual(json_of_response(rv), expected)
 
     def test_summary_build(self):
         rv = build_summary(self, 'test message 1')
-        expected = {'text': 'test message 1'}
+        expected = {'text': 'test message 1', 'status': 'ok'}
+        self.assertEqual(json_of_response(rv), expected)
+
+    def test_empty_summary_build(self):
+        rv = build_summary(self, '')
+        expected = {
+            'message': 'set text dict key to generate summary',
+            'status': 'error'
+        }
+        self.assertEqual(json_of_response(rv), expected)
+
+    def test_empty_summary_data_build(self):
+        rv = json_request(self, '/api/summary_from_text')
+        expected = {
+            'message': 'set text dict key to generate summary',
+            'status': 'error'
+        }
         self.assertEqual(json_of_response(rv), expected)
 
 
