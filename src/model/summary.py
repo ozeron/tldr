@@ -1,5 +1,7 @@
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+
 
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
@@ -9,9 +11,13 @@ import json
 
 TAKE_TOP = 7
 
+stop_words = stopwords.words('english')
+
 
 def tokenize(text):
-    words = [word.lower() for word in word_tokenize(text) if word.isidentifier()]
+    def is_ok_word(word):
+        return word.isidentifier() and word not in stop_words
+    words = [word.lower() for word in word_tokenize(text) if is_ok_word(word)]
     return words
 
 
@@ -25,7 +31,7 @@ def generate_tfidf_scores(documents, dictionary=None, model=None):
 
 def get_top_indexes(scores):
     top = min(len(scores), TAKE_TOP)
-    return np.argpartition(scores, -top)[-top:]
+    return sorted(np.argpartition(scores, -top)[-top:])
 
 
 def build(text):

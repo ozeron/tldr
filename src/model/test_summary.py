@@ -24,7 +24,7 @@ class SummaryestCase(unittest.TestCase):
     def test_build(self):
         input = "Text like this. Fastering test"
         text = summary.build(input)
-        expected = "Fastering test\n\nText like this."
+        expected = "Text like this.\n\nFastering test"
         self.assertEqual(text, expected)
 
 if __name__ == '__main__':
