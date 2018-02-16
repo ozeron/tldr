@@ -12,6 +12,7 @@ COPY requirments.txt /app/
 
 RUN pip3 install -r requirments.txt --quiet
 RUN python3 -c "import nltk; nltk.download('punkt')"
+RUN python3 -c "import nltk; nltk.download('stopwords')"
 
 ENV FLASK_APP app
 
